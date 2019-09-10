@@ -20,5 +20,6 @@ fs.readFile('./input.txt', function (err, data) {
 // 同步读取
 var data = fs.readFileSync('input.txt');
 console.log("同步读取: " + data.toString());
-
-console.log("程序执行完毕。");
+fs.writeFileSync("./input.txt", +1235155);
+var data2 = fs.readFileSync('input.txt');
+console.log("同步读取: " + data2.toString());
