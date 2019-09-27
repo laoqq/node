@@ -1,0 +1,143 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-25 11:10:31
+ * @LastEditTime: 2019-09-26 20:36:00
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container-fluid">
+        <t></t>
+        <div class="input-group">
+            <input type="text" class="form-control" ref="word" v-model='word' @keyup.13="add">
+            <div class="input-group-addon" style="padding: 2px">
+                <input type="date" v-model='date'>
+            </div>
+            <span class="input-group-btn">
+                <button class=" btn btn-success" @click='add'>添加</button>
+            </span>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>全选 <input type="checkbox" v-model="checkboxAll" /></th>
+                    <th>#</th>
+                    <th>待办事项</th>
+                    <th>预计完成事件</th>
+                    <th>是否完成</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in datalist" @click="selectEd(index)" :t="item">
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // Vue.component('tbr', {
+        //         props: ['t'],
+        //         template: ` <div><td><input type="checkbox" v-model="t.selected" /></td>
+
+        //         <td>{{t.content}}</td>
+        //         <td>{{t.date}}</td>
+        //         <td>{{t.done?'是':'否'}}</td>
+        //         <td>
+        //             <div class=" btn-group btn-group-sm">
+        //                 <button type="submit" class="btn btn-default" @click.stop="complete(index)">完成</button>
+        //                 <button type="submit" class="btn btn-danger" @click.stop="remove(index)">删除</button>
+        //             </div>
+        //         </td>
+        //         </div>`
+        //     }),
+
+        new Vue({
+            el: "#app",
+            data: {
+                word: '',
+                date: '',
+                datalist: [{
+                    id: 1,
+                    content: "1",
+                    done: false,
+                    date: '2019-09-25',
+                    selected: false
+                }]
+            },
+            components: {
+                t: {
+                    template: ` <div>
+                        <td><input type="checkbox" v-model="t.selected" /></td>
+
+                        <td>{{t.content}}</td>
+                        <td>{{t.date}}</td>
+                        <td>{{t.done?'是':'否'}}</td>
+                        <td>
+                            <div class=" btn-group btn-group-sm">
+                                <button type="submit" class="btn btn-default" @click.stop="complete(index)">完成</button>
+                                <button type="submit" class="btn btn-danger" @click.stop="remove(index)">删除</button>
+                            </div>
+                        </td>
+                    </div>`
+                }
+            },
+            computed: {
+                checkboxAll: {
+                    get() {
+                        return this.datalist.every(item => item.selected)
+                    },
+                    set(val) {
+                        this.datalist.forEach(item => item.selected = val)
+                    }
+                }
+            },
+            methods: {
+                add() {
+                    let data = {
+                        id: this.datalist.length + 1,
+                        content: this.word,
+                        done: this.done,
+                        date: this.date,
+                        selected: false
+                    }
+                    this.datalist.unshift(data);
+                    this.word = '';
+                    this.$refs.word.focus();
+                },
+
+                remove(index) {
+                    this.datalist.splice(index, 1)
+                },
+                complete(index) {
+                    this.datalist.forEach((item, i) => {
+                        if (i == index) {
+                            item.done = true;
+                        }
+
+                    });
+                },
+                selectEd(index) {
+                    this.datalist.forEach((item, idx) => {
+                        if (idx == index)
+                            item.selected = !item.selected
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

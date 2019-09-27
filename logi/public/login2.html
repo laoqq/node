@@ -1,0 +1,64 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-12 16:31:00
+ * @LastEditTime: 2019-09-16 17:18:30
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    div {
+      width: 300px;
+      margin: 100px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label for="u">账号</label>
+    <input type="text" name="u" id="u" />
+    <br />
+    <br />
+    <label for="m">密码</label>
+    <input type="text" name="" id="m" />
+    <br />
+    <br />
+    <button id="bt">登陆</button>
+  </div>
+</body>
+<script src="./javascripts/jquery.min.js"></script>
+<script>
+  const reg = (name, password) => {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        type: "post",
+        url: "http://localhost:3000/login/login",
+        data: {
+          name,
+          password
+        },
+        success: function (response) {
+          resolve(response);
+
+
+        },
+      });
+    });
+  };
+  $("#bt").click(async () => {
+    let name = $("#u").val();
+    let password = $("#m").val();
+    let to = await reg(name, password);
+    console.log(to);
+  });
+</script>
+
+</html>

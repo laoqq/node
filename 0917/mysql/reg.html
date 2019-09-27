@@ -1,0 +1,65 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-19 16:45:01
+ * @LastEditTime: 2019-09-20 11:40:20
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstarp/css/bootstrap.css">
+</head>
+
+<body>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">PgPassword</label>
+        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+    </div>
+    <button type="button" class="btn btn-success">注册</button>
+</body>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+    $("#exampleInputEmail1").blur(function () {
+        let email = $("#exampleInputEmail1").val().toString();
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            console.log(xhr.responseText);
+        }
+        xhr.open("GET", './user/chek' + '?' + 'username' + '=' +
+            email, true);
+        xhr.send();
+
+    });
+    $(".btn").click(function () {
+
+        let email = $("#exampleInputEmail1").val().toString();
+        let password = $("#exampleInputPassword1").val().toString();
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            console.log(xhr.responseText);
+        }
+        xhr.open("post", './user/reg', true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(
+            `username=${email}&password=${password}`
+        );
+
+    });
+</script>
+
+</html>

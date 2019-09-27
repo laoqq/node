@@ -1,0 +1,60 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-24 16:16:07
+ * @LastEditTime: 2019-09-24 17:21:12
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul class="nav nav-tabs">
+            <li v-for="(item,idx) in tabs" v-bind:class="{active:idx===currentIdx}" v-on:click="chang(idx)">
+                <a href="#">{{item.nub}}</a></li>
+        </ul>
+        <div v-for="(item, idx) in tabs" v-if="idx===currentIdx" style="padding: 10px" v-html="item.text"> </div>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                currentIdx: 0,
+                tabs: [{
+                    nub: 1,
+                    text: `<h1>1</h1>`
+                }, {
+                    nub: 2,
+                    text: 2
+                }, {
+                    nub: 3,
+                    text: 3
+                }, {
+                    nub: 4,
+                    text: 4
+                }, {
+                    nub: 5,
+                    text: 5
+                }]
+            },
+            methods: {
+                chang(idx) {
+                    this.currentIdx = idx
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

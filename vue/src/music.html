@@ -1,0 +1,48 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-26 11:30:16
+ * @LastEditTime: 2019-09-26 11:58:14
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <audio :src="musicSrc" autoplay="" controls="" @ended="nextMusic"></audio>
+        <ul>
+            <li v-for="(item,index) in music" @click='mIdx(index)' style="cursor: pointer">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                music: ['./music/1.mp3', './music/2.mp3', './music/3.mp3'],
+                musicSrc: './music/1.mp3',
+                musicIndex: 0
+            },
+            methods: {
+                mIdx(index) {
+                    this.musicSrc = this.music[index];
+                },
+                nextMusic() {
+                    this.musicIndex++;
+                    this.musicSrc = this.music[this.musicIndex];
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
